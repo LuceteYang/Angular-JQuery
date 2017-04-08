@@ -8,25 +8,38 @@
 </head>
 <body ng-controller="ctrl">
 <h1>스마트폰 목록</h1>
-<label>검색 : <input type="text" placeholder="이름검색"/></label>
-<label><input type="radio" name="order" value="-price"/>가격 <i class="fa fa-arrow-up"></i></label>
-<label><input type="radio" name="order" value="price"/>가격 <i class="fa fa-arrow-down"></i></label>
-<label><input type="radio" name="order" value="-release"/>출시일 <i class="fa fa-arrow-up"></i></label>
-<label><input type="radio" name="order" value="release"/>출시일 <i class="fa fa-arrow-down"></i></label>
-<ul  ng-controller="ctrl">
-    <li ng-repeat="phone in phoneList">
-        이름 : {{phone.name}} /
-        가격 : {{phone.price}} /
-        출시일 : {{phone.release}}
+<label>검색 : <input type="text" ng-model="q" placeholder="이름검색"/></label>
+<label><input type="radio" name="order" ng-model="order" value="-price"/>가격 <i class="fa fa-arrow-up"></i></label>
+<label><input type="radio" name="order" ng-model="order" value="price"/>가격 <i class="fa fa-arrow-down"></i></label>
+<label><input type="radio" name="order" ng-model="order" value="-release"/>출시일 <i class="fa fa-arrow-up"></i></label>
+<label><input type="radio" name="order" ng-model="order" value="release"/>출시일 <i class="fa fa-arrow-down"></i></label>
+<ul ng-controller="ctrl">
+    <li ng-repeat="phone in phoneList|orderBy:'-price'|filter:{name:q}">
+    <!--<li ng-repeat="phone in phoneList|orderBy:'-price'|filter:'9'">-->
+    이름 : {{phone.name}} /
+        <!--자리수-->
+        가격 : {{phone.price|currency:undefined:0}} /
+        출시일 : {{phone.release|date:"yyyy년 M월 dd"}}
     </li>
 </ul>
 
 <!-- 1) angular-min.js를 import -->
 <script src="js/angular.min.js"></script>
+<!--우리나라 통화 / 날짜처리 i18n-->
+<script src="js/angular-locale_ko.js"></script>
+<!--kr-input사용 import-->
+<script src="js/angular-ko.input.js"></script>
+
 
 <script>
+    // angular의 필터 : |
+    // - currency : 통화
+    // - data : 날
+    // - orderBy : 정렬
+    // - filter : 내용안에서 검색
+
     // 2)대표 모듈 설정
-    var app = angular.module("phoneApp", []);
+    var app = angular.module("phoneApp", ["kr-input"]);
     // 4) controller 생성
     app.controller("ctrl", ["$scope", function ($scope) {
         //$scope는   view와 controller의 연결고리
@@ -36,7 +49,6 @@
             {"name": "애플 아이폰 7+", "price": 599000, "release": "2017-10-21"},
             {"name": "화웨이 P9", "price": 599500, "release": "2017-12-02"}
             ];
-
     }]);
 </script>
 

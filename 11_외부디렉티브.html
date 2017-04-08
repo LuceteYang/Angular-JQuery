@@ -3,12 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <title>외부 디렉티브의 사용</title>
+    <!-- css import -->
+    <link rel = "stylesheet" href="css/angular-datepicker.css">
     <style>
-        
+        datepicker{
+            width:350px;
+        }
     </style>
 </head>
 <body>
 <h1>날짜선택</h1>
+<datepicker>
+    <input ng-model="date"/>
+</datepicker>
 
+<book-card book-abc="dddd"></book-card>
+<script src="js/angular.min.js"></script>
+<script>
+    var app = angular.module("directiveApp",["720kb.datepicker"]);     //aet지원
+    app.directive("bookCard",[function () {
+        return {
+            restrict:"E"
+        }
+    }]);
+
+    app.directive("bookAbc",[function () {
+        return {
+            restrict:"A"
+        }
+    }])
+
+</script>
+<script src="js/angular-datepicker.js"></script>
 </body>
 </html>
+<!--
+    디렉티브 : 요소(E), 속성(A), 클래스(C), 코멘트(M) 왜쓰는지 모르겠음
+
+-->
