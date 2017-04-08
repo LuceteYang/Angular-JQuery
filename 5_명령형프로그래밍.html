@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>명령형 프로그래밍</title>
+	<link rel="stylesheet" href="css/kakao.font.css"/>
+	<style>
+		body {
+			font-family: 'Kakao', sans-serif;
+		}
+
+        img {
+            width:300px;
+            box-shadow: 0 16px 28px 0 rgba(0, 0, 0, 0.22), 0 25px 55px 0 rgba(0, 0, 0, 0.21);
+        }
+
+        #toggleImg {
+            transition: .4s ease;
+            transform:perspective(500px) rotateY(0deg) scale(1);
+        }
+        #toggleImg.mini {
+            transform:perspective(500px) rotateY(720deg) scale(.5);
+        }
+
+        #img2 {
+            display : none;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>명령형 프로그래밍은?</h1>
+    <div id="box">
+        <p>
+            <input type="checkbox" id="toggle">
+            <label for="toggle">숨기기</label>
+        </p>
+        <img src="poster/p1.jpg" width="300" id="toggleImg"/>
+        <img src="poster/p2.jpg" width="300" id="img1"/>
+        <img src="poster/p3.jpg" width="300" id="img2"/>
+    </div>
+<script src="js/jquery.js"></script>
+<script>
+    //id가 toggle인 요소를 선택하고
+    //change 이벤트 리스너를 붙입니다.
+    $("#toggle").change(function(){
+        //2) checked가 적용되었는지 확인합니다.
+        var isChecked = $("#toggle").prop("checked");
+        //3) #img1요소를 숨김
+        if(isChecked){
+            //isChecked가 true일때 여기가 작동
+            $("#toggleImg").addClass("mini");
+            $("#img1").hide();
+            $("#img2").show();
+            $("label").text("보이기");
+        }else{
+            //isChecked가 false일때 작동
+            $("#toggleImg").removeClass("mini");
+            $("#img1").show();
+            $("#img2").hide();
+            $("label").text("숨기기");
+        }
+    });//#toggle change() end
+
+</script>
+</body>
+</html>

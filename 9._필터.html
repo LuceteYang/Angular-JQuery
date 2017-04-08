@@ -1,0 +1,44 @@
+<!doctype html>
+<!-- ng-app 지정 -->
+<html ng-app="phoneApp">
+<head>
+    <meta charset="UTF-8">
+    <title>angular복습 / filter</title>
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+</head>
+<body ng-controller="ctrl">
+<h1>스마트폰 목록</h1>
+<label>검색 : <input type="text" placeholder="이름검색"/></label>
+<label><input type="radio" name="order" value="-price"/>가격 <i class="fa fa-arrow-up"></i></label>
+<label><input type="radio" name="order" value="price"/>가격 <i class="fa fa-arrow-down"></i></label>
+<label><input type="radio" name="order" value="-release"/>출시일 <i class="fa fa-arrow-up"></i></label>
+<label><input type="radio" name="order" value="release"/>출시일 <i class="fa fa-arrow-down"></i></label>
+<ul  ng-controller="ctrl">
+    <li ng-repeat="phone in phoneList">
+        이름 : {{phone.name}} /
+        가격 : {{phone.price}} /
+        출시일 : {{phone.release}}
+    </li>
+</ul>
+
+<!-- 1) angular-min.js를 import -->
+<script src="js/angular.min.js"></script>
+
+<script>
+    // 2)대표 모듈 설정
+    var app = angular.module("phoneApp", []);
+    // 4) controller 생성
+    app.controller("ctrl", ["$scope", function ($scope) {
+        //$scope는   view와 controller의 연결고리
+        $scope.phoneList = [
+            {"name": "삼성 갤럭시 S8", "price": 998000, "release": "2017-04-21"},
+            {"name": "LG G6", "price": 788000, "release": "2017-03-10"},
+            {"name": "애플 아이폰 7+", "price": 599000, "release": "2017-10-21"},
+            {"name": "화웨이 P9", "price": 599500, "release": "2017-12-02"}
+            ];
+
+    }]);
+</script>
+
+</body>
+</html>
